@@ -10,12 +10,13 @@ let i = 0;
 let h = 420;
 let w = h;
 function setup() {
-  createCanvas(h, w);
+  createCanvas(windowWidth,windowWidth);
 }
 
 let colorList = ["white", "black"];
 
 function draw() {
+  background("blue");
   for (let x = 0; x < width; x += width / 8) {
     checker();
     for (let y = 0; y < height; y += height / 8) {
@@ -26,10 +27,10 @@ function draw() {
 }
 function checker(){
   if (i===0){
-    fill("black")
+    fill("black");
     i++;
   } else {
-    fill("white")
-    i--
+    fill("white");
+    i--;
   }
 }
