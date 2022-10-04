@@ -19,7 +19,7 @@ function setup() {
 
 function draw() {
   background(220);
-  image(dinoImage, 200, 200, dinoImage.width*scalar, dinoImage.height*scalar);
+  image(dinoImage, 200, 400, dinoImage.width/28*scalar, dinoImage.height/28*scalar);
 }
 
 function keyPressed() {
