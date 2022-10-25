@@ -20,6 +20,20 @@ function draw() {
     theCircles[i].x += theCircles[i].dx;
     theCircles[i].y += theCircles[i].dy;
 
+    //collision check
+    for ( let j = 0; j<theCircles.length; j++){
+      if (i !== j){ //dont check if hitting self
+        if(IsColliding(theCircles[i], theCircles[j])){
+          let tempDX = theCircles[i].dx;
+          let tempDY = theCircles[i].dy;
+          theCircles[i].dx = theCircles[j].dx;
+          theCircles[i].dy = theCircles[j].dy;
+          theCircles[j].dx = tempDX;
+          theCircles[j].dy = tempDY;
+        }
+      }
+    }
+
     //left-right edges
     if (theCircles[i].x + theCircles[i].radius > width ||
        theCircles[i].x - theCircles[i].radius < 0) {
@@ -57,4 +71,15 @@ function spawnBall(tempX, tempY) {
     theColor: color(random(255), random(255), random(255), random(255))
   };
   return newBall;
+}
+
+function IsColliding(ball1, ball2){
+  let distanceBetween = dist(ball1.x, ball1.y, ball2.x, ball2.y);
+  let radiiSum = ball1.radius + ball2.radius;
+  if( distanceBetween > radiiSum){
+    return false;
+  }
+  else{
+    return true;
+  }
 }
