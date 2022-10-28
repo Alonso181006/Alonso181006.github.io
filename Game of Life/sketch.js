@@ -5,11 +5,17 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-const ROWS = 200;
-const COLS = 200;
+const ROWS = 50;
+const COLS = 50;
 let grid;
 let cellWidth;
 let cellHeight;
+let autoPlay = false;
+let gosperGun;
+
+function preload(){
+  gosperGun = loadJSON("gosper.json");
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -20,6 +26,9 @@ function setup() {
 
 function draw() {
   background(220);
+  if (autoPlay && frameCount % 2=== 0){
+    grid = takeTurn(grid);
+  }
   displayGrid(grid);
 }
 
@@ -29,6 +38,12 @@ function keyPressed() {
   }
   if (key === " ") {
     grid = takeTurn(grid);
+  }
+  if(key === "a"){
+    autoPlay = !autoPlay;
+  }
+  if(key === "g"){
+    grid = gosperGun;
   }
 }
 
