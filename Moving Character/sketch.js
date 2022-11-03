@@ -13,9 +13,12 @@ let cellWidth;
 let cellHeight;
 let playerX = 0;
 let playerY = 0;
+let entityX = 1;
+let entityY = 0;
 let grassImg;
 let stoneImg;
 let wolfImg;
+
 
 function preload(){
   grassImg = loadImage("grass.png");
@@ -30,6 +33,7 @@ function setup() {
   grid = createRandom2dArray(COLS, ROWS);
   //place player in grid
   grid[playerY][playerX] = 9;
+  grid[entityY][entityX] = 4;
 }
 
 function draw() {
@@ -119,6 +123,12 @@ function displayGrid(grid) {
         // rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
         image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
         image(wolfImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      }
+      else if (grid[y][x] === 4) {
+        // fill("red");
+        // rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        fill("red");
+        rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
     }
   }
