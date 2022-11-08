@@ -30,7 +30,6 @@ function preload() {
 }
 
 function setup() {
-  // keep this a 4:3 ratio, or it will stretch in weird ways
   createCanvas(windowWidth, windowHeight);
 
   tilesHigh = lines.length;
