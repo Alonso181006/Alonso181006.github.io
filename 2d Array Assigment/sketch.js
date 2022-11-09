@@ -13,14 +13,17 @@ let levelToLoad;
 let lines;
 let playerX = 2;
 let playerY = 7;
+let closedSet = [];
+let openSet = [];
+let start;
+let end;
+let path = [];
 
 
 function preload() {
   //load level data
   levelToLoad = "0.txt";
   lines = loadStrings(levelToLoad);
-
-
   //load tile images
   player = loadImage("tankBlue.png");
   enemy = loadImage("tankBeige.png");
@@ -79,15 +82,15 @@ function showTile(location, x, y) {
 
 }
 
-function createEmpty2dArray(cols, rows) {
-  let randomGrid = [];
-  for (let y = 0; y < rows; y++) {
-    randomGrid.push([]);
-    for (let x = 0; x < cols; x++) {
-      randomGrid[y].push(0);
+function createEmpty2dArray(tilesWide, tilesHigh) {
+  let randomtiles = [];
+  for (let y = 0; y < tilesHigh; y++) {
+    randomtiles.push([]);
+    for (let x = 0; x < tilesWide; x++) {
+      randomtiles[y].push(0);
     }
   }
-  return randomGrid;
+  return randomtiles;
 }
 function keyPressed() {
   if (keyCode === RIGHT_ARROW) {
@@ -142,3 +145,44 @@ function keyPressed() {
     }
   }
 }
+
+/// Path Finding Code
+function heuristic(position0, position1) {
+  let d1 = Math.abs(position1.x - position0.x);
+  let d2 = Math.abs(position1.y - position0.y);
+
+  return d1 + d2;
+}
+
+// A* (star) Pathfinding
+// Initialize both open and closed list
+//let the openList equal empty list of nodes
+//let the closedList equal empty list of nodes
+// Add the start node
+//put the startNode on the openList (leave it's f at zero)
+// Loop until you find the end
+//while the openList is not empty
+    // Get the current node
+    //let the currentNode equal the node with the least f value
+    //remove the currentNode from the openList
+    //add the currentNode to the closedList
+    // Found the goal
+    //if currentNode is the goal
+        //Congratz! You've found the end! Backtrack to get path
+    // Generate children
+    //let the children of the currentNode equal the adjacent nodes
+    
+    //for each child in the children
+        // Child is on the closedList
+        //if child is in the closedList
+            //continue to beginning of for loop
+        // Create the f, g, and h values
+        //child.g = currentNode.g + distance between child and current
+        //child.h = distance from child to end
+        //child.f = child.g + child.h
+        // Child is already in openList
+        //if child.position is in the openList's nodes positions
+            //if the child.g is higher than the openList node's g
+                //continue to beginning of for loop
+        // Add the child to the openList
+        //add the child to the openList
