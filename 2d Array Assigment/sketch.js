@@ -54,11 +54,9 @@ function setup() {
 
 function draw() {
   display();
-
 }
 
 function display() {
-
   for (let y = 0; y < tilesHigh; y++) {
     for (let x = 0; x < tilesWide; x++) {
       showTile(tiles[y][x], x, y);
@@ -146,14 +144,6 @@ function keyPressed() {
   }
 }
 
-/// Path Finding Code
-function heuristic(position0, position1) {
-  let d1 = Math.abs(position1.x - position0.x);
-  let d2 = Math.abs(position1.y - position0.y);
-
-  return d1 + d2;
-}
-
 // A* (star) Pathfinding
 // Initialize both open and closed list
 //let the openList equal empty list of nodes
@@ -187,13 +177,186 @@ function heuristic(position0, position1) {
 // Add the child to the openList
 //add the child to the openList
 
-class Neighbours{
-  constructor(){
-    this.neighbours = [];
-  }
+// class tilesPoint{
+//   constructor(x, y){
+//     this.x = x;
+//     this.y = y;
+//     this.f = 0;
+//     this.g = 0;
+//     this.h = 0;
+//     this.neighbors = [];
+//     this.parent = undefined;
+//   }
 
-  updateNeighbour(grid){
+//   updateNeighbors(tiles){
+//     let i = this.x;
+//     let j = this.y;
+//     if (i < tilesHigh - 1) {
+//       this.neighbors.push(tiles[i + 1][j]);
+//     }
+//     if (i > 0) {
+//       this.neighbors.push(tiles[i - 1][j]);
+//     }
+//     if (j < tilesWide - 1) {
+//       this.neighbors.push(tiles[i][j + 1]);
+//     }
+//     if (j > 0) {
+//       this.neighbors.push(tiles[i][j - 1]);
+//     }
+//   }
+// }
 
-  }
+// function init() {
+//   //making a 2D array
+//   for (let i = 0; i < tilesHigh; i++) {
+//     tiles[i] = new Array(tilesWide);
+//   }
 
+//   for (let i = 0; i < tilesHigh; i++) {
+//     for (let j = 0; j < tilesWide; j++) {
+//       tiles[i][j] = new tilesPoint(i, j);
+//     }
+//   }
+
+//   for (let i = 0; i < tilesHigh; i++) {
+//     for (let j = 0; j < tilesWide; j++) {
+//       tiles[i][j].updateNeighbors(tiles);
+//     }
+//   }
+
+//   start = tiles[0][0];
+//   end = tiles[tilesHigh- 1][tilesWide- 1];
+
+//   openSet.push(start);
+// }
+
+// function search() {
+//   init();
+//   while (openSet.length > 0) {
+//     //assumption lowest index is the first one to begin with
+//     let lowestIndex = 0;
+//     for (let i = 0; i < openSet.length; i++) {
+//       if (openSet[i].f < openSet[lowestIndex].f) {
+//         lowestIndex = i;
+//       }
+//     }
+//     let current = openSet[lowestIndex];
+
+//     if (current === end) {
+//       let temp = current;
+//       path.push(temp);
+//       while (temp.parent) {
+//         path.push(temp.parent);
+//         temp = temp.parent;
+//       }
+//       console.log("DONE!");
+//       // return the traced path
+//       return path.reverse();
+//     }
+
+//     //remove current from openSet
+//     openSet.splice(lowestIndex, 1);
+//     //add current to closedSet
+//     closedSet.push(current);
+
+//     let neighbors = current.neighbors;
+
+//     for (let i = 0; i < neighbors.length; i++) {
+//       let neighbor = neighbors[i];
+
+//       if (!closedSet.includes(neighbor)) {
+//         let possibleG = current.g + 1;
+
+//         if (!openSet.includes(neighbor)) {
+//           openSet.push(neighbor);
+//         } 
+//         else if (possibleG >= neighbor.g) {
+//           continue;
+//         }
+
+//         neighbor.g = possibleG;
+//         neighbor.h = heuristic(neighbor, end);
+//         neighbor.f = neighbor.g + neighbor.h;
+//         neighbor.parent = current;
+//       }
+//     }
+//   }
+// }
+
+// const COLS = 5;
+// const ROWS = 5;
+// let cellWidth;
+// let cellHeight;
+
+
+// let openSet = [];
+// let closedSet = [];
+
+// let player;
+// let enemy;
+
+// let grid = new Array(COLS);
+
+// class Cell {
+//   constructor(i,j) {
+//     this.x = i;
+//     this.y = j;
+//     this.f = 0;
+//     this.g = 0;
+//     this.h = 0;
+//   }
+
+//   display(){
+//     fill("white");
+//     stroke(0);
+//     rect(this.x * cellWidth, this.y * cellHeight, cellWidth, cellHeight);
+//   }
+// }
+
+// function setup(){
+//   createCanvas(windowWidth, windowHeight);
+//   cellWidth = width / COLS;
+//   cellHeight = height / ROWS;
+
+//   //Making a 2d Array
+//   for (let i = 0; i< COLS; i++){
+//     grid[i] = new Array(ROWS);
+//   }
+
+//   for (let i = 0; i< COLS; i++){
+//     for (let j = 0; j < ROWS; j++){
+//       grid[i][j] = new Cell();
+//     }
+//   }
+
+//   player = grid[0][0];
+//   enemy = grid[COLS -1][ROWS-1];
+
+//   openSet.push(player);
+// }
+
+// function draw(){
+//   background(255);
+//   if (openSet.length > 0){  
+//   //we can keep going
+//   }
+//   else{
+//     // no solution
+//   }
+
+//   for (let i = 0; i< COLS; i++){
+//     for (let j = 0; j < ROWS; j++){
+//       grid[i][j].display(i,j);
+//     }
+//   }
+
+// }
+
+/// Path Finding Code
+function heuristic(position0, position1) {
+  let d1 = Math.abs(position1.x - position0.x);
+  let d2 = Math.abs(position1.y - position0.y);
+
+  return d1 + d2;
 }
+
