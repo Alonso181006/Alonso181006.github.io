@@ -163,8 +163,10 @@ function draw() {
 }
 
 function heuristic(position0, position1) {
-  let d = dist(position1.i, position1.j, position0.i, position0.j);
-  return d;
+  let d1 = Math.abs(position1.x - position0.x);
+  let d2 = Math.abs(position1.y - position0.y);
+
+  return d1 + d2;
 }
 
 // Function to delete element from the array
@@ -204,7 +206,7 @@ function pathfinding(){
       let neighbour = neighbours[i];
 
       // Is the next Cell valid?
-      if (!closedSet.includes(neighbour) && !neighbour.wall) {
+      if (!closedSet.includes(neighbour) && !neighbour.obstacle) {
         let tentative_gScore = current.g + heuristic(neighbour, current);
 
         // Is this a better path than before?

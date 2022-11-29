@@ -204,7 +204,7 @@ function pathfinding(){
       let neighbour = neighbours[i];
 
       // Is the next Cell valid?
-      if (!closedSet.includes(neighbour) && !neighbour.wall) {
+      if (!closedSet.includes(neighbour) && !neighbour.obstacle) {
         let tentative_gScore = current.g + heuristic(neighbour, current);
 
         // Is this a better path than before?
