@@ -104,6 +104,34 @@ class Cell {
   }
 }
 
+class Player{
+  constructor(x,y){
+    this.x = x;
+    this.y = y;
+    this.dx = 1;
+    this.dy = 1;
+  }
+  display(){
+    fill("red");
+    rect(this.x * cellWidth, this.y * cellHeight, cellWidth, cellHeight);
+  }
+  update(){
+    if(keyIsDown(87) ){ //w
+      this.y -= this.dy;
+    }
+    if(keyIsDown(83) ){ //s
+      this.y += this.dy;
+    }
+    if(keyIsDown(65) ){ //a
+      this.x -= this.dx;
+    }
+    if(keyIsDown(68) ){ //w
+      this.x += this.dx;
+    }
+    return this.x,this.y;
+  }
+}
+
 function preload(){
   player = loadImage("tankBlue.png");
   enemy = loadImage("tankBeige.png");
@@ -113,7 +141,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
 
   //Create player & enemy
-  playerAlpha = new Cell();
+  playerAlpha = new Player(playerX,playerY);
   enemyAlpha = new Cell();
 
   // Grid cell size
@@ -145,7 +173,7 @@ function setup() {
   enemyY = Math.floor(random(ROWS));
 
   // Start and end
-  start = grid[playerX][playerY];
+  start = grid[playerAlpha.update()][playerAlpha.update()];
   end = grid[enemyX][enemyY];
   start.obstacle = false;
   end.obstacle = false;
@@ -266,3 +294,4 @@ function pathfinding(){
   endShape();
 
 }
+
